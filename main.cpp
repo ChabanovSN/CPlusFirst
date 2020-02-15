@@ -46,8 +46,8 @@ void task34_1(){
          int *arrNeg = new int[negNum]; //динамич. массив для отриц. чисел
          posNum = negNum = 0;          // обнуляем для использования в качестве индексов
          for(int* pt =arr; pt<arr +N; pt++)
-             if(*pt >= 0) arrPos[posNum++] = *pt; // считаем положит. числа
-             else arrNeg[negNum++] = *pt;        //  считаем отриц. числа
+             if(*pt >= 0) arrPos[posNum++] = *pt; 
+             else arrNeg[negNum++] = *pt;       
 
          if(posNum){// проверка если массив оказался пустым
              cout<<" Positive array"<<endl;
