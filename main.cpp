@@ -1,77 +1,107 @@
-
-
 #include <iostream>
+#include<cstring>
+#include<cctype>
 using namespace std;
-void task33_1();// первая задача
-void task34_1();// вторая задача
-void fillArr(int *, int, int, int);
-void print(int *, int);
-void sw(int *,int *);
-int main() {
-   task33_1();
-   task34_1();
+
+void task1(void);
+void task2(void);
+void task3(void);
+void task4(void);
+void task5(void);
+void task5_1(char *);
+
+int main(){
+      setlocale(LC_ALL,"RUS");
+    task1();// 1я задача
+    task2();// 2я задача
+    task3();// 3я задача
+    task4();// 4я задача
+    task5();// 5я задача
     return 0;
 }
-//33.1 Дан массив целых чисел. Воспользовавшись указателями,
-//поменяйте местами элементы массива с четными и нечетными индексами
-//(т.е. те элементы массива, которые стоят на четных местах,
-// поменяйте с элементами, которые стоят на нечетных местах).
-void task33_1(){
-    cout<<"Task 33.1"<<endl;
-    const int N = 10; int arr[N];
-   fillArr(arr,N, 20, 20); print(arr,N);
-   for(int* pt =arr; pt<arr +N; pt +=2)
-       sw(pt, pt+1);
-    print(arr,N);
-}
-void sw(int * a,int * b){
-    int tmp = *a;
-    *a = *b;
-    *b = tmp;
-}
 
+//1.Пользователь вводит строку с клавиатуры в массив. Необходимо проверить,
+//сколько элементов массива теперь занято и сколько свободно.
 
-//34.1 Создать динамический массив, заполнить его случайными (-20 до 20) значениями, после этого:
-//Разложить положительные и отрицательные элементы по разным массивам, а исходный массив удалить.
-void task34_1(){
-     cout<<"Task 34.1"<<endl;
-     const int N = 20; int *arr = new int[N];
-     fillArr(arr,N, 20, 41); print(arr,N);
-     int posNum =0, negNum = 0;
-      for(int* pt =arr; pt<arr +N; pt++)
-          if(*pt >= 0) ++posNum; // считаем положит. числа
-          else ++negNum;         //  считаем отриц. числа
+void task1(void){
+    cout<<"1я задача"<<endl;
 
-         int *arrPos = new int[posNum]; // динамич. массив для положит. чисел
-         int *arrNeg = new int[negNum]; //динамич. массив для отриц. чисел
-         posNum = negNum = 0;          // обнуляем для использования в качестве индексов
-         for(int* pt =arr; pt<arr +N; pt++)
-             if(*pt >= 0) arrPos[posNum++] = *pt; 
-             else arrNeg[negNum++] = *pt;       
-
-         if(posNum){// проверка если массив оказался пустым
-             cout<<" Positive array"<<endl;
-             print(arrPos,posNum);
-         }
-         if(negNum){
-               cout<<" Negative array"<<endl;
-             print(arrNeg,negNum);
-         }
-
-         delete [] arr;
-//         delete [] arrPos;   // ну этого в задании небыло....
-//         delete [] arrNeg;
+    char str[50];
+     cout<<"Введите строку"<<endl;
+     cin>>str;
+     cout<<"Строка заняла "<<strlen(str) +1 // плюс один на '\0'
+       <<" элементов массива, свободно "<<
+       50 - (strlen(str) +1)<<endl;
 
 }
+//2. Дана строка символов. Заменить в ней все пробелы на табуляции.
+void task2(void){
+     cout<<"2я задача"<<endl;
 
-
-void fillArr(int *arr, int size, int from, int to){
-    srand(time(NULL));
-    for(int i =0; i<size;i++)
-           *(arr+i)=from - rand()% to;
+   char str[] ="one two three four";
+    cout<< "Before: "<<str<<endl;
+   for(int i = 0; i <sizeof str; i++)
+       if(str[i]==' ')str[i]='\t';
+    cout<< "After : "<<str<<endl;
 }
-void print(int *arr, int size){
-     for(int i =0; i<size;i++)
-          cout<< *(arr+i)<<" ";
-      cout<<endl;
+//3. Дана строка символов. Определить количество букв, цифр и остальных символов, присутствующих в строке.
+
+void task3(void){
+     cout<<"3я задача"<<endl;
+
+   char str[] ="one_1 two-2 three^3 four: 4";
+   cout<<"Строка для анализа: "<<str<<endl;
+    int letter =0, digit = 0;
+    for(int i = 0; i <sizeof str; i++){
+        if(isdigit(str[i])) digit++;
+        if(isalpha(str[i])) letter++;
+    }
+    cout<<"букаФФ: "<<letter
+         <<"\nЦифр: "<<digit
+         <<"\nОстальные символы: "<< ((sizeof str )-1 - digit - letter)
+         <<endl;
+}
+//4. Подсчитать количество слов во введенном предложении.
+
+void task4(void){
+     cout<<"4я задача"<<endl;
+
+   char str[] =" 1 two 3 \t \t four 5 ";
+   cout<<"Строка для анализа: "<<str<<endl;
+    int words =0;
+    int start =0;
+     while(isspace(str[start++])); // убираем пробелы спереди
+
+    int stop  =sizeof str;
+     while(isspace(str[--stop])); //убираем пробелы сзади
+
+    for(int i = start; i <= stop;){
+         while(!isspace(str[i++])); /// пропускаем все кроме пробелов и табуляции
+            words++; // сработает после букв
+         while(isspace(str[i++])); /// убераем если пробелов и табуляций больше чем одна
+
+    }
+    cout<<"Слов: "<<words<<endl;
+}
+//5. Дана строка символов. Необходимо проверить является ли эта строка палиндромом.
+void task5(){
+    char str1[] ="abcdTdcba";
+    task5_1(str1);
+    char str2[] ="abtdTdhhba";
+     task5_1(str2);
+}
+void task5_1(char * str){
+     cout<<"5я задача"<<endl;
+   cout<<"Строка для анализа: "<<str<<endl;
+   bool poldr = 0;
+    for(int i = 0, j =strlen(str)-1; i <j; i++,j--){
+        if(str[i] !=str[j]){ // в одном цикле сравниваем первый и последний сивмол
+            poldr =1; break;
+        }
+  }
+    if(poldr){
+        cout<<str<<" Не палиндромом"<<endl;
+    }else
+        cout<<str<<" Палиндромом"<<endl;
+
 }
