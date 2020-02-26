@@ -21,7 +21,7 @@ void task33_1(){
     const int N = 10; int arr[N];
    fillArr(arr,N, 20, 20); print(arr,N);
    for(int* pt =arr; pt<arr +N; pt +=2)
-       sw(pt, pt+1);
+       if(pt+1!=N+arr)sw(pt, pt+1);
     print(arr,N);
 }
 void sw(int * a,int * b){
