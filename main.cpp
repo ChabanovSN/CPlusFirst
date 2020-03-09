@@ -11,9 +11,9 @@ template<class L>
 void findCarLetter(L a, Car cars[],const int N); // поиск машины по буквам номера 4е задание
 int main(){
     setlocale(LC_ALL,"RUS");
-  // task1();
-   // task2();
-  //  task3();
+    task1();
+    task2();
+    task3();
     task4();
     return 0;
 }
