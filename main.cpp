@@ -1,107 +1,137 @@
-#include <iostream>
-#include<cstring>
-#include<cctype>
-using namespace std;
+#include "automobileh.h"
+#include "libraryh.h"
+void task1(); // структура "automobileh.h"
+void task2();//структура "libraryh.h"
+void task3(); // структура "automobileh.h"
+void task4(); // структура "automobileh.h"
 
-void task1(void);
-void task2(void);
-void task3(void);
-void task4(void);
-void task5(void);
-void task5_1(char *);
-
+template<class D>
+void findCarDigit(D a, Car cars[],const int N); // поиск машины по цифрам  номера 4е задание
+template<class L>
+void findCarLetter(L a, Car cars[],const int N); // поиск машины по буквам номера 4е задание
 int main(){
-      setlocale(LC_ALL,"RUS");
-    task1();// 1я задача
-    task2();// 2я задача
-    task3();// 3я задача
-    task4();// 4я задача
-    task5();// 5я задача
+    setlocale(LC_ALL,"RUS");
+  // task1();
+   // task2();
+  //  task3();
+    task4();
     return 0;
 }
+//Задание 1:
+//Реализовать структуру «Автомобиль» (длина, клиренс (высота посадки),
+//объем двигателя, мощность двигателя, диаметр колес, цвет, тип коробки передач).
+//Создайте функции для задания значений, отображения значений, поиска значений.
+void task1(){
+    cout<<"Задача 1:"<<endl;
+    Automobile masda;
+    masda.createCar();
+    masda.toString();
+    masda.find();
+}
+//Задание 2:
+//Разработайте программу «Библиотека».
+//Создайте структуру «Книга» (название, автор, издательство, жанр).
+//Создайте массив из 10 книг.
+void task2(){
+     cout<<"Задача 2:"<<endl;
+     Book books[10];
+      books[0]={"Book # 1","Vasya Pupkin","Dom Knigy","Horror"};
+      books[1]={"Book # 2","Vasya Pupkin","Dom Knigy","not Horror"};
+      books[2]={"Book # 3","Vasya Pupkin","Dom Knigy","Fantasy"};
+      books[3]={"Book # 4","Vasya Pupkin","Dom Knigy","novel"};
+      books[4]={"Book # 5","Vasya Pupkin","Dom Knigy","dump"};
+      books[5]={"Book # 6","Vasya Pupkin","Dom Knigy","trush"};
+      books[6]={"Book # 7","Vasya Pupkin","Dom Knigy","documentary"};
+      books[7]={"Book # 8","Vasya Pupkin","Dom Knigy","news"};
+      books[8]={"Book # 9","Vasya Pupkin","Dom Knigy","bla-bla-bla"};
+      books[9]={"Book # 10","Vasya Pupkin","Dom Knigy","forcast"};
 
-//1.Пользователь вводит строку с клавиатуры в массив. Необходимо проверить,
-//сколько элементов массива теперь занято и сколько свободно.
+      for(int i = 0;i<10;i++)
+          books[i].printBook();
 
-void task1(void){
-    cout<<"1я задача"<<endl;
-
-    char str[50];
-     cout<<"Введите строку"<<endl;
-     cin>>str;
-     cout<<"Строка заняла "<<strlen(str) +1 // плюс один на '\0'
-       <<" элементов массива, свободно "<<
-       50 - (strlen(str) +1)<<endl;
 
 }
-//2. Дана строка символов. Заменить в ней все пробелы на табуляции.
-void task2(void){
-     cout<<"2я задача"<<endl;
-
-   char str[] ="one two three four";
-    cout<< "Before: "<<str<<endl;
-   for(int i = 0; i <sizeof str; i++)
-       if(str[i]==' ')str[i]='\t';
-    cout<< "After : "<<str<<endl;
+//Задание 3:
+//Реализовать структуру «Машина» (цвет, модель, номер).
+//Номер машины может представлять из себя или пятизначный номер или слово до 8 символов.
+//Рекомендации: номер реализовать как объединение.
+void task3(){
+     cout<<"Задача 3:"<<endl;
+    Car c1;
+    c1.creat();
+    c1.print();
+    Car c2;
+    c2.creat();
+    c2.print();
 }
-//3. Дана строка символов. Определить количество букв, цифр и остальных символов, присутствующих в строке.
+//*Задание 4:
+//Создать массив из 10 экземпляров структуры «Машина»
+//и реализовать для него следующие функции:
+// Редактировать машину
+// Печать всех машин
+// Поиск машины по номеру
+void task4(){
+     cout<<"Задача 4:"<<endl;
+     const int N =10;
+     Car cars[N];
+     cars[0]={"Red","Volga",0};
+     cars[0].numCar.numS= (char (*))"a123bfRU";
+     cars[1]={"Blue","Volga",0};
+     cars[1].numCar.numS= (char (*))"a999bfRU";
+     cars[2]={"Green","Volga",0};
+     cars[2].numCar.numS= (char (*))"a33bfRU";
+     cars[3]={"Red","Volga",1};
+     cars[3].numCar.numD= 12345;
+     cars[4]={"Red","Volga",1};
+     cars[4].numCar.numD= 54321;
+     cars[5]={"Dark","Volga",0};
+     cars[5].numCar.numS= (char (*))"a777tfRU";
+     cars[6]={"Red","Volga",0};
+     cars[6].numCar.numS= (char (*))"a666ttRU";
+     cars[7]={"Red","Volga",0};
+     cars[7].numCar.numS= (char (*))"a123bfRU";
+     cars[8]={"Red","Volga",1};
+     cars[8].numCar.numD= 99999;
+     cars[9]={"Red","Volga",1};
+     cars[9].numCar.numD= 11111;
+// Печать всех машин
+     for(int i = 0; i<N;i++)
+         cars[i].print();
 
-void task3(void){
-     cout<<"3я задача"<<endl;
+    // Поиск машины по номеру
+   // если это засунуть в одну функцию то на лету юнион не переопределятеся...
+    findCarDigit( 11111,cars,N); // поиск по цифрам
 
-   char str[] ="one_1 two-2 three^3 four: 4";
-   cout<<"Строка для анализа: "<<str<<endl;
-    int letter =0, digit = 0;
-    for(int i = 0; i <sizeof str; i++){
-        if(isdigit(str[i])) digit++;
-        if(isalpha(str[i])) letter++;
-    }
-    cout<<"букаФФ: "<<letter
-         <<"\nЦифр: "<<digit
-         <<"\nОстальные символы: "<< ((sizeof str )-1 - digit - letter)
-         <<endl;
+    findCarLetter( "a123bfRU",cars,N);// поиск по буквам
+
+    // Редактировать машину
+
+      cars[9].correct(); // меняем номер на цифры 33333
+     findCarDigit( 33333,cars,N);
 }
-//4. Подсчитать количество слов во введенном предложении.
-
-void task4(void){
-     cout<<"4я задача"<<endl;
-
-   char str[] =" 1 two 3 \t \t four 5 ";
-   cout<<"Строка для анализа: "<<str<<endl;
-    int words =0;
-    int start =0;
-     while(isspace(str[start++])); // убираем пробелы спереди
-
-    int stop  =sizeof str;
-     while(isspace(str[--stop])); //убираем пробелы сзади
-
-    for(int i = start; i <= stop;){
-         while(!isspace(str[i++])); /// пропускаем все кроме пробелов и табуляции
-            words++; // сработает после букв
-         while(isspace(str[i++])); /// убераем если пробелов и табуляций больше чем одна
-
-    }
-    cout<<"Слов: "<<words<<endl;
-}
-//5. Дана строка символов. Необходимо проверить является ли эта строка палиндромом.
-void task5(){
-    char str1[] ="abcdTdcba";
-    task5_1(str1);
-    char str2[] ="abtdTdhhba";
-     task5_1(str2);
-}
-void task5_1(char * str){
-     cout<<"5я задача"<<endl;
-   cout<<"Строка для анализа: "<<str<<endl;
-   bool poldr = 0;
-    for(int i = 0, j =strlen(str)-1; i <j; i++,j--){
-        if(str[i] !=str[j]){ // в одном цикле сравниваем первый и последний сивмол
-            poldr =1; break;
+template<class L>
+void findCarLetter(L a, Car cars[], const int N){
+    for(int i = 0; i<N;i++){
+            if(cars[i].numCar.numS == (char (*)) a){
+                cout<<"Мы нашли вашу машину"<<endl;
+                cars[i].print();
+                return;
+            }
         }
-  }
-    if(poldr){
-        cout<<str<<" Не палиндромом"<<endl;
-    }else
-        cout<<str<<" Палиндромом"<<endl;
+     cout<<"У нас нет вашей машины"<<endl;
+
 
 }
+template<class D>
+void findCarDigit(D a, Car cars[],const int N){
+    for(int i = 0; i<N;i++){
+        if(cars[i].unittype==1)
+            if(cars[i].numCar.numD == (int) a){
+                  cout<<"Мы нашли вашу машину"<<endl;
+                cars[i].print();
+                return;
+            }
+        }
+     cout<<"У нас нет вашей машины"<<endl;
+}
+
