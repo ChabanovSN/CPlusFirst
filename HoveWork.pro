@@ -4,6 +4,9 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    main.cpp
+    fillData.cpp \
+    main.cpp \
+    printData.cpp
 
-HEADERS +=
+HEADERS += \
+    human.h
