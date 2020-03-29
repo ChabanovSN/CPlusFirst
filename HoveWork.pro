@@ -6,6 +6,4 @@ CONFIG -= qt
 SOURCES += \
     main.cpp
 
-HEADERS += \
-    automobileh.h \
-    libraryh.h
+HEADERS +=
