@@ -4,9 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    fillData.cpp \
+    groupstudent.cpp \
     main.cpp \
-    printData.cpp
+    student.cpp
 
 HEADERS += \
-    human.h
+    groupstudent.h \
+    student.h
