@@ -4,10 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    groupstudent.cpp \
-    main.cpp \
-    student.cpp
+    fraction.cpp \
+    main.cpp
 
 HEADERS += \
-    groupstudent.h \
-    student.h
+    fraction.h
