@@ -5,7 +5,11 @@ CONFIG -= qt
 
 SOURCES += \
     fraction.cpp \
-    main.cpp
+    main.cpp \
+    person.cpp \
+    phonebook.cpp
 
 HEADERS += \
-    fraction.h
+    fraction.h \
+    person.h \
+    phonebook.h

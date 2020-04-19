@@ -1,4 +1,5 @@
 #include"fraction.h"
+#include "phonebook.h"
 /*Задание 1.
 Реализуйте класс Дробь.
 */
@@ -24,9 +25,26 @@ void task1(){
          cout<<"Не верный оператор"<<endl;
      }
 }
+/*
+ * Создайте приложение «Телефонная книга».
+*/
+void task2(){
+    PhoneBook p; // создание телефоной книги
+    p.addPerson(); // добавить 2 абонента
+    p.addPerson();
+    p.getAll(); // показать список
+    Person * person = p.findForName(); // найти по имени
+    if(person){
+        cout<<*person<<endl; // вывод на печать найденого абоне6нта
+        p.deleteForName(*person); // удаление найденного абонента
+
+    }
+    cout<<"После поиска и удаления"<<endl;
+    p.getAll(); //вывод всех ( проверка результат после удаления )
+}
 int main(){
     setlocale(LC_ALL,"RUS");
-    task1();
-
+   task1(); // первая задача
+   task2();  // и вторая
     return 0;
 }

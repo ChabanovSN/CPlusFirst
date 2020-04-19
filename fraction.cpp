@@ -6,7 +6,7 @@ numerator(0),denominator(1)
 
 Fraction::Fraction(int numerator,int denominator)
 {
-   assert(denominator!=0); // знаминатель не может быть нулем
+   assert(denominator!=0); // знаменатель не может быть нулем
    this->numerator = numerator;
    this->denominator = denominator;
 
