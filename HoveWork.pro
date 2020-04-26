@@ -4,12 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    fraction.cpp \
     main.cpp \
     person.cpp \
-    phonebook.cpp
+    string1.cpp
 
 HEADERS += \
-    fraction.h \
     person.h \
-    phonebook.h
+    string1.h

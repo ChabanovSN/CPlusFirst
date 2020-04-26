@@ -1,50 +1,36 @@
-#include"fraction.h"
-#include "phonebook.h"
+#include "person.h"
+#include "string1.h"
+#include<iostream>
+using namespace std;
 /*Задание 1.
-Реализуйте класс Дробь.
+1. Разработать класс Person, который содержит соответствующие члены для хранения
 */
 void task1(){
-    Fraction f1,f2;
-    char op;
-     cin>>f1>>f2; // можно вносить данные через оператор ввода.
-     cout<<"Введите арифметическую операцию + - / *"<<endl;cin>>op;
-     switch (op) {
-     case'+':
-          cout<<"Сложение: "<<(f1+f2);
-         break;
-     case'-':
-           cout<<"Вычетание: "<<(f1-f2);
-         break;
-     case'/':
-         cout<<"Деление:   "<<(f1/f2);
-         break;
-     case'*':
-           cout<<"Умнoжение: "<<(f1*f2);
-         break;
-     default:
-         cout<<"Не верный оператор"<<endl;
-     }
+    Person p;
+    p.Print();
 }
 /*
- * Создайте приложение «Телефонная книга».
+ Разработать класс String
 */
 void task2(){
-    PhoneBook p; // создание телефоной книги
-    p.addPerson(); // добавить 2 абонента
-    p.addPerson();
-    p.getAll(); // показать список
-    Person * person = p.findForName(); // найти по имени
-    if(person){
-        cout<<*person<<endl; // вывод на печать найденого абоне6нта
-        p.deleteForName(*person); // удаление найденного абонента
-
-    }
-    cout<<"После поиска и удаления"<<endl;
-    p.getAll(); //вывод всех ( проверка результат после удаления )
+ String str; // конструктор по умолчанию
+  cout<<"Введите строку"<<endl;
+  cin>>str; // перегруженный оператор ввода
+  cout<<str<<" str длина:"<<str.size()<<endl;
+  str = "hi"; // перегруженный оператор присвоение для массива чаров
+  cout<<str<<" str длина:"<<str.size()<<endl;
+  String str2(str); //конструктор копирования
+  cout<<str2<<" str2 длина:"<<str2.size()<<endl;
+  char *p = "Array of chars";
+  String  str3(p);  // конструктор с массивоми чаров
+   cout<<str3<<" str3 длина:"<<str3.size()<<endl;
+   String str4 ;
+   str4 = str2+str3; // конкотация
+   cout<<str4<<" str4 длина:"<<str4.size()<<endl;
 }
 int main(){
     setlocale(LC_ALL,"RUS");
-   task1(); // первая задача
+   //task1(); // первая задача
    task2();  // и вторая
     return 0;
 }

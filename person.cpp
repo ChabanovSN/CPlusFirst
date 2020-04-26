@@ -5,10 +5,10 @@ Person::Person()
     setFirstName()
             .setLastName()
             .setPatronymic()
+            .setAddGender()
+            .setAge()
             .setMobPhone()
-            .setHomePhone()
-            .setJobPhone()
-            .setAdditInfo();
+            .setHomePhone();
 }
 
 Person& Person::setFirstName(){
@@ -53,21 +53,22 @@ Person& Person::setMobPhone(){
 char * Person::getMobPhone(){
     return mobPhone;
 }
-Person& Person::setJobPhone(){
-   cout<<"Рабочий телефон: "<<endl;
-   jobPhone=putStringInCharArray();
+Person& Person::setAge(){
+   cout<<"Возраст: "<<endl;
+   int a;cin>>a;
+   if(a>0) age=a;
     return *this;
 }
-char * Person::getJobPhone(){
-    return jobPhone;
+int Person::getAge(){
+    return age;
 }
-Person& Person::setAdditInfo(){
-   cout<<"Доп. информация: "<<endl;
-   additInfo=putStringInCharArray();
+Person& Person::setAddGender(){
+   cout<<"Пол: "<<endl;
+   gender=putStringInCharArray();
     return *this;
 }
-char * Person::getAdditInfo(){
-    return additInfo;
+char * Person::getAddGender(){
+    return gender;
 }
 char * Person::putStringInCharArray(){
      getline(cin,getInfo);
@@ -87,11 +88,15 @@ char * Person::putStringInCharArray(){
      }
 }
 
+void Person::Print(){
+    cout<<*this;
+}
 ostream& operator<< (ostream &out, const Person &person){
-     out<<"ФИО : "<<person.firstName<<" "<<person.patronymic<<" "
-        <<person.lastName<<"\n"<<"Мобильный телефон: "<<person.mobPhone
-        <<"\nДомашний телефон : "<<person.homePhone<<"\nРабочий телефон: "<<person.jobPhone
-        <<"\nДоп. информация :"<<person.additInfo<<endl
+      out<<"ФИО : "<<person.firstName<<" "<<person.patronymic<<" "<<person.lastName
+        <<"\nВозраст: "<<person.age
+        <<"\nПол :"<<person.gender<<"\nМобильный телефон: "<<person.mobPhone
+        <<"\nДомашний телефон : "<<person.homePhone
+        <<endl
         <<"---------------------------------------------"<<endl;
      return out;
  }
