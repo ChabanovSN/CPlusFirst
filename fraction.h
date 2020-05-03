@@ -14,10 +14,16 @@ public:
     Fraction(int,int);
     friend ostream& operator<< (ostream &out, const Fraction &fr);
     friend istream& operator>> (istream &in, Fraction &fr);
-    Fraction operator+(Fraction fr2);
-    Fraction operator-(Fraction fr2);
+    Fraction operator+(Fraction &fr2);
+    Fraction operator-(Fraction &fr2);
     Fraction operator*(Fraction &fr2);
     Fraction operator/(Fraction &fr2);
+    Fraction operator++(int);
+    Fraction& operator++();
+    Fraction operator--(int);
+    Fraction& operator--();
+
+
     void NOD();
 };
 

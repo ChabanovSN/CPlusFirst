@@ -21,7 +21,36 @@ void ::Fraction::NOD(){
     numerator /=(a+b);
     denominator /=(a+b);
 }
-Fraction Fraction:: operator+(Fraction fr2){
+Fraction& Fraction::operator++(){ // префиксная операция
+    NOD();
+    if(denominator !=1){
+    numerator++;
+    denominator++;
+    }else
+    numerator++;
+    return  *this;
+}
+Fraction Fraction::operator++(int){
+      Fraction result(*this);
+    ++(*this);   // использование уже перегруженной префиксной операции
+    return  result;
+}
+Fraction& Fraction::operator--(){  // префиксная операция
+    NOD();
+    numerator--;
+    denominator--;
+    if(denominator==0){
+        denominator=1;
+    }
+      NOD();
+    return  *this;
+}
+Fraction Fraction::operator--(int){
+    Fraction result(*this);
+   --(*this);  // использование уже перегруженной префиксной операции
+    return  result;
+}
+Fraction Fraction:: operator+(Fraction &fr2){
     int commDen = denominator * fr2.denominator;
      numerator *=fr2.denominator;
      fr2.numerator *=denominator;
@@ -30,7 +59,7 @@ Fraction Fraction:: operator+(Fraction fr2){
      NOD();
      return Fraction(numerator,denominator);
  }
-Fraction Fraction:: operator-(Fraction fr2){
+Fraction Fraction:: operator-(Fraction &fr2){
     int commDen = denominator * fr2.denominator;
      numerator *=fr2.denominator;
      fr2.numerator *=denominator;
@@ -53,7 +82,7 @@ Fraction Fraction:: operator/(Fraction &fr2){
      return Fraction(numerator,denominator);
  }
  ostream& operator<< (ostream &out, const Fraction &fr){
-
+      if(fr.numerator%fr.denominator==0)return out<<fr.numerator/fr.denominator<<endl;
       if(fr.numerator==0)return out<<"0"<<endl;
       if(fr.denominator==1)return out<<fr.numerator<<endl;
       if(fr.numerator == fr.denominator)return out<<"1"<<endl;

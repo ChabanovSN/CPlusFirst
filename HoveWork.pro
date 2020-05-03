@@ -6,10 +6,8 @@ CONFIG -= qt
 SOURCES += \
     fraction.cpp \
     main.cpp \
-    person.cpp \
-    phonebook.cpp
+    time_.cpp
 
 HEADERS += \
     fraction.h \
-    person.h \
-    phonebook.h
+    time_.h
