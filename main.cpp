@@ -1,50 +1,30 @@
-#include"fraction.h"
-#include "phonebook.h"
-/*Задание 1.
-Реализуйте класс Дробь.
-*/
-void task1(){
-    Fraction f1,f2;
-    char op;
-     cin>>f1>>f2; // можно вносить данные через оператор ввода.
-     cout<<"Введите арифметическую операцию + - / *"<<endl;cin>>op;
-     switch (op) {
-     case'+':
-          cout<<"Сложение: "<<(f1+f2);
-         break;
-     case'-':
-           cout<<"Вычетание: "<<(f1-f2);
-         break;
-     case'/':
-         cout<<"Деление:   "<<(f1/f2);
-         break;
-     case'*':
-           cout<<"Умнoжение: "<<(f1*f2);
-         break;
-     default:
-         cout<<"Не верный оператор"<<endl;
-     }
-}
-/*
- * Создайте приложение «Телефонная книга».
-*/
-void task2(){
-    PhoneBook p; // создание телефоной книги
-    p.addPerson(); // добавить 2 абонента
-    p.addPerson();
-    p.getAll(); // показать список
-    Person * person = p.findForName(); // найти по имени
-    if(person){
-        cout<<*person<<endl; // вывод на печать найденого абоне6нта
-        p.deleteForName(*person); // удаление найденного абонента
+#include"Opstrings1.h"
+#include"Opstrings2.h"
+#include"Opstrings3.h"
+#include"Opstrings4.h"
+#include<iostream>
+#include <string>
 
-    }
-    cout<<"После поиска и удаления"<<endl;
-    p.getAll(); //вывод всех ( проверка результат после удаления )
-}
-int main(){
-    setlocale(LC_ALL,"RUS");
-   task1(); // первая задача
-   task2();  // и вторая
+class CodeSqStrings
+{
+public:
+    static std::string code(const std::string &strng);
+    static std::string decode(const std::string &strng);
+};
+
+int main()
+{   string s =   "abcd\nefgh\nijkl\nmnop";
+    string sol = "abcd|plhd|dhlp\nefgh|okgc|cgko\nijkl|njfb|bfjn\nmnop|miea|aeim";
+    //s = "abcd\nefgh\nijkl\nmnop" -->
+   // "abcd|aeim\nefgh|bfjn\nijkl|cgko\nmnop|dhlp"
+
+    //diag_1_sym(s) => "aeim\nbfjn\ncgko\ndhlp"
+    Opstrings4 p;
+        cout<<sol<<endl;
+                 cout<<"------------------"<<endl;
+       cout<<p.oper(p.selfieDiag2Counterclock,s)<<endl;
+
+
+
     return 0;
 }

@@ -10,6 +10,10 @@ SOURCES += \
     phonebook.cpp
 
 HEADERS += \
+    Opstrings1.h \
+    Opstrings2.h \
+    Opstrings3.h \
+    Opstrings4.h \
     fraction.h \
     person.h \
     phonebook.h
