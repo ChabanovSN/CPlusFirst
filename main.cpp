@@ -19,7 +19,7 @@ int j = rand()%18, jj = rand()%25, jjj = rand()%15;
  int score = 0;
      cout<<"[ "<<q1.front()<<" : "<<q2.front()<<" : "<<q3.front()<<" ]"<<endl;
 
-      if(q1.front() == q2.front() || q2.front() == q3.front())
+      if(q1.front() == q2.front() || q2.front() == q3.front() || q1.front() == q3.front())
         score = (int)q1.front() * 2;
        if(q1.front() == q2.front() && q1.front() == q3.front())
         score = (int)q1.front() * 3;
@@ -27,8 +27,7 @@ int j = rand()%18, jj = rand()%25, jjj = rand()%15;
  else cout<<" Не повезло, давай ещё!?"<<endl;
 
 }
-int main()
-{
+int main(){
     srand(time(NULL));
     cout<<"Нажмите Enter для вращения барабана"<<endl;
     while(1){
