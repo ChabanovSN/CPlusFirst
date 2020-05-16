@@ -34,7 +34,9 @@ STACKTYPE front(){
  int size() const{
      return List< STACKTYPE >::size();
  }
-
+void setCircleSize(int l){
+    List< STACKTYPE >::setCircle(l);
+}
  }; // конец класса Stack
 
 

@@ -1,8 +1,8 @@
-#ifndef LIST_H
+﻿#ifndef LIST_H
 #define LIST_H
 #include <iostream>
 #include "ListNode.h" // определение класса ListNode
-using std::cout;
+using namespace std;
 template< typename NODETYPE >
 class List
 {
@@ -25,10 +25,15 @@ public:
     bool isEmpty() const;
     void print() const;
     int size() const;
+    void setCircle(int l){
+        circleSize =l;
+    }
 private:
     ListNode< NODETYPE > *firstPtr; // указатель на первый узел
     ListNode< NODETYPE > *lastPtr; // указатель на последний узел
     int lenght = 0; // размер
+    int circleSize = 0;
+
     // сервисная функция для выделения памяти нового узла
     ListNode< NODETYPE > *getNewNode( const NODETYPE & );
 }; // конец класса List
@@ -61,24 +66,42 @@ void List< NODETYPE >::insertAtFront( const NODETYPE &value )
         firstPtr = lastPtr = newPtr; // список имеет всего один узел
     else // List is not empty
     {
-        newPtr->nextPtr = firstPtr; // новый указывает на предыдущий
-        firstPtr = newPtr; // направить firstPtr на новый узел
+        firstPtr=lastPtr;
+        firstPtr->data=value;
+
     } // конец else
-} // конец функции insertAtFront
+
+}// конец функции insertAtFront
 
 // вставить узел в начало списка
 template< typename NODETYPE >
 void List< NODETYPE >::insertAtBack( const NODETYPE &value )
 {
     ListNode< NODETYPE > *newPtr = getNewNode( value ); // новый узел
-    lenght++;
-    if ( isEmpty() ) // список пуст
-        firstPtr = lastPtr = newPtr; // список имеет всего один узел
+
+    if ( isEmpty() ){ // список пуст
+        firstPtr = lastPtr = newPtr;
+        lenght++;
+    }// список имеет всего один узел
     else // список не пуст
-    {
-        lastPtr->nextPtr = newPtr; // обновить бывший последний узел
-        lastPtr = newPtr; // новый последний узел
-    } // конец else
+    {  if(circleSize)
+              if(lenght >=circleSize){
+            ListNode< NODETYPE > *tempPtr = firstPtr;
+            firstPtr = tempPtr->nextPtr;
+            lastPtr->nextPtr = newPtr; // обновить бывший последний узел
+             newPtr->data = tempPtr->data;
+            lastPtr = newPtr; // новый последний узел
+             }else{
+                  lenght++;
+                  lastPtr->nextPtr = newPtr; // обновить бывший последний узел
+                  lastPtr = newPtr; // новый последний узел
+        }else {
+            lenght++;
+            lastPtr->nextPtr = newPtr; // обновить бывший последний узел
+            lastPtr = newPtr; // новый последний узел
+        }
+    }
+    // конец else
 } // конец функции insertAtBack
 template< typename NODETYPE >
 NODETYPE List< NODETYPE >::front() const{
@@ -140,7 +163,7 @@ bool List< NODETYPE >::removeFromBack()
 template< typename NODETYPE >
 bool List< NODETYPE >::isEmpty() const
 {
-    return firstPtr == 0;
+    return lenght == 0;
 } // конец функции isEmpty
 
 // возвратить указатель на вновь выделенный узел
