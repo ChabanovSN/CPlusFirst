@@ -1,30 +1,77 @@
-#include"Opstrings1.h"
-#include"Opstrings2.h"
-#include"Opstrings3.h"
-#include"Opstrings4.h"
 #include<iostream>
-#include <string>
-
-class CodeSqStrings
-{
+#include<queue>
+#include<thread>
+using namespace std;
+class Taksy{
 public:
-    static std::string code(const std::string &strng);
-    static std::string decode(const std::string &strng);
+    int places=20;
+    Taksy(int n = 0){// если остановка конечная то конструктор без параметров
+                      // и соответсвенно места все свободные = 20
+        if(n !=0)
+         places = rand()%21; //мест в маршрутке от 0 до 20
+     }
+    friend ostream& operator<< (ostream &out, const Taksy &t);
 };
+ostream& operator<< (ostream &out, const Taksy &t){
+    return  out<<"Свободных мест: "<<t.places<<endl;
+}
+int waiting(int t,int p){
+    int time=0;
+    queue<int> diffTime;
+    while(t-p >0){
+      t -=p;
+      diffTime.push(t);
+    }
+    int sizeQ = diffTime.size();
+    while(!diffTime.empty()){
+        time +=diffTime.front();
+        diffTime.pop();
+    }
+    return time/sizeQ;
+}
+void calcTimeForTaksy(int n){
 
+    int time_pass = 2; // среднее время между появлениями пассажиров мин.
+    int time_taksy= 160; //среднее время между   появлениями маршруток(изначально завышено) мин.
+     size_t N = 20; // максимум допустивое число людей на остановке
+      queue<int> q_pass;
+    int count = 0;
+    while(count != 10){ // если 10 маршруток подряд забрали достаточное кол-во пассажиров,
+                          //завершаем  расчет
+          for(int i = 0;i<time_taksy/time_pass;i++)q_pass.push(1); // люди становятся в очередь
+
+          if(q_pass.size() >N){// если в перерыве между маршрутками набралось больше людей ем нужно
+                               // сократим время между маршрутками и очистии очередь
+           for(int i = 0;i<time_taksy/time_pass;i++)q_pass.pop();
+              time_taksy--;
+              count = 0;
+              continue;
+          }else ++count;
+
+          Taksy taksy(n); // подъезд маршрутки консруктор по-умалчанию
+                         //для конечной остановке 20 свободных мест
+                     // любая цифра отличная от нуля в конструкторе делает маршрутрку частично заполненной
+          cout<<taksy<<" Людей на остановке: "<<q_pass.size()<<endl;
+         int a =0;
+          while(taksy.places && q_pass.size()){
+              if(!q_pass.empty() && taksy.places>0){
+                taksy.places -=q_pass.front(); // посадка в маршрутку
+                ++a;
+                q_pass.pop();
+              }else{
+                  break;
+              }
+
+          }
+          cout<<"В маршрутку село "<<a<<endl;a=0;
+    }
+cout<<"среднее время пребывание человека"
+     <<" на остановке "<<waiting(time_taksy,time_pass)<<" минут"<<endl;
+cout<<"Оптимальное время между маршрутками "<<time_taksy<<" минут"<<endl;
+}
 int main()
-{   string s =   "abcd\nefgh\nijkl\nmnop";
-    string sol = "abcd|plhd|dhlp\nefgh|okgc|cgko\nijkl|njfb|bfjn\nmnop|miea|aeim";
-    //s = "abcd\nefgh\nijkl\nmnop" -->
-   // "abcd|aeim\nefgh|bfjn\nijkl|cgko\nmnop|dhlp"
-
-    //diag_1_sym(s) => "aeim\nbfjn\ncgko\ndhlp"
-    Opstrings4 p;
-        cout<<sol<<endl;
-                 cout<<"------------------"<<endl;
-       cout<<p.oper(p.selfieDiag2Counterclock,s)<<endl;
-
-
-
+{
+    srand(time(NULL));
+   calcTimeForTaksy(1);
     return 0;
 }
