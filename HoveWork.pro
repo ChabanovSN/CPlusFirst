@@ -6,4 +6,7 @@ CONFIG -= qt
 SOURCES += \
     main.cpp
 
-HEADERS +=
+HEADERS += \
+    List.h \
+    ListNode.h \
+    Queue.h

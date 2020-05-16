@@ -1,6 +1,6 @@
 #include<iostream>
-#include<queue>
-#include<thread>
+#include"Queue.h"
+
 using namespace std;
 class Taksy{
 public:
@@ -17,13 +17,13 @@ ostream& operator<< (ostream &out, const Taksy &t){
 }
 int waiting(int t,int p){ // функция расчета среднего времени
     int time=0;
-    queue<int> diffTime;
+    Queue<int> diffTime;
     while(t-p >0){
       t -=p;
       diffTime.push(t);
     }
     int sizeQ = diffTime.size();
-    while(!diffTime.empty()){
+    while(!diffTime.isEmpty()){
         time +=diffTime.front();
         diffTime.pop();
     }
@@ -33,8 +33,8 @@ void calcTimeForTaksy(int n){
 
     int time_pass = 2; // среднее время между появлениями пассажиров мин.
     int time_taksy= 160; //среднее время между   появлениями маршруток(изначально завышено) мин.
-     size_t N = 20; // максимум допустивое число людей на остановке
-      queue<int> q_pass;
+    int N = 20; // максимум допустивое число людей на остановке
+      Queue<int> q_pass;
     int count = 0;
     while(count != 10){ // если 10 маршруток подряд забрали достаточное кол-во пассажиров,
                           //завершаем  расчет
@@ -54,7 +54,7 @@ void calcTimeForTaksy(int n){
           cout<<taksy<<" Людей на остановке: "<<q_pass.size()<<endl;
          int a =0;
           while(taksy.places && q_pass.size()){
-              if(!q_pass.empty() && taksy.places>0){
+              if(!q_pass.isEmpty() && taksy.places>0){
                 taksy.places -=q_pass.front(); // посадка в маршрутку
                 ++a;
                 q_pass.pop();
