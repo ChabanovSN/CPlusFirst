@@ -15,7 +15,7 @@ public:
 ostream& operator<< (ostream &out, const Taksy &t){
     return  out<<"Свободных мест: "<<t.places<<endl;
 }
-int waiting(int t,int p){
+int waiting(int t,int p){ // функция расчета среднего времени
     int time=0;
     queue<int> diffTime;
     while(t-p >0){
