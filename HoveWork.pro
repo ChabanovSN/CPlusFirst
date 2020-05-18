@@ -9,4 +9,4 @@ SOURCES += \
 HEADERS += \
     List.h \
     ListNode.h \
-    Queue.h
+    QueuePrior.h

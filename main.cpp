@@ -1,78 +1,52 @@
 #include<iostream>
-#include"Queue.h"
-
+#include"QueuePrior.h"
+#include <thread>
 using namespace std;
-class Taksy{
+class Client{
 public:
-    int places=20;
-    Taksy(int n = 0){// если остановка конечная то конструктор без параметров
-                      // и соответсвенно места все свободные = 20
-        if(n !=0)
-         places = 1 + rand()%20; //мест в маршрутке от 1 до 20
-     }
-    friend ostream& operator<< (ostream &out, const Taksy &t);
+     string name="";
+     int prior=0; // приоритет
+    Client(string n,int p):name(n),prior(p){}
+    friend ostream& operator<< (ostream &out, const Client &t);
 };
-ostream& operator<< (ostream &out, const Taksy &t){
-    return  out<<"Свободных мест: "<<t.places<<endl;
+ostream& operator<< (ostream &out, const Client &c){
+    return  out<<"Клиент: "<<c.name<<" приоритет: "<<c.prior<<endl;
 }
-int waiting(int t,int p){ // функция расчета среднего времени
-    int time=0;
-    Queue<int> diffTime;
-    while(t-p >0){
-      t -=p;
-      diffTime.push(t);
+class Statictic{
+public:
+    Client client;
+    time_t givemetime;
+    Statictic(Client c):client(c){
+     givemetime = time(NULL);
     }
-    int sizeQ = diffTime.size();
-    while(!diffTime.isEmpty()){
-        time +=diffTime.front();
-        diffTime.pop();
-    }
-    return time/sizeQ;
-}
-void calcTimeForTaksy(int n){
-
-    int time_pass = 2; // среднее время между появлениями пассажиров мин.
-    int time_taksy= 160; //среднее время между   появлениями маршруток(изначально завышено) мин.
-    int N = 5; // максимум допустивое число людей на остановке
-      Queue<int> q_pass;
-    int count = 0;
-    while(count != 10){ // если 10 маршруток подряд забрали достаточное кол-во пассажиров,
-                          //завершаем  расчет
-
-          for(int i = 0;i<time_taksy/time_pass;i++)q_pass.push(1); // люди становятся в очередь
-
-          if(q_pass.size() >N){// если в перерыве между маршрутками набралось больше людей ем нужно
-                               // сократим время между маршрутками и очистии очередь
-           for(int i = 0;i<time_taksy/time_pass;i++)q_pass.pop();
-              time_taksy--;
-              count = 0;
-              continue;
-          }else ++count;
-
-          Taksy taksy(n); // подъезд маршрутки консруктор по-умалчанию
-                         //для конечной остановке 20 свободных мест
-                     // любая цифра отличная от нуля в конструкторе делает маршрутрку частично заполненной
-          cout<<taksy<<" Людей на остановке: "<<q_pass.size()<<endl;
-         int a =0;
-          while(taksy.places && q_pass.size()){
-              if(!q_pass.isEmpty() && taksy.places>0){
-                taksy.places -=q_pass.front(); // посадка в маршрутку
-                ++a;
-                q_pass.pop();
-              }else{
-                  break;
-              }
-
-          }
-          cout<<"В маршрутку село "<<a<<endl;a=0;
-    }
-cout<<"среднее время пребывание человека"
-     <<" на остановке "<<waiting(time_taksy,time_pass)<<" минут"<<endl;
-cout<<"Оптимальное время между маршрутками "<<time_taksy<<" минут"<<endl;
+   friend ostream& operator<< (ostream &out, const Statictic &st);
+};
+ostream& operator<< (ostream &out, Statictic &st){
+    return  out<<st.client<<"Время отправки на печать: "<< ctime(&st.givemetime);
 }
 int main()
 {
-    srand(time(NULL));
-   calcTimeForTaksy(1);
+     Client c1("c1",2), c2("c2",1),c3("c3",3),c4("c4",3);
+     Client c5("c5",2),c6("c6",1);
+     Client   c7("c3",3),c8("c4",3);
+    QueuePrior<Client> q;
+    q.push(c1, c1.prior);    q.push(c2, c2.prior);
+    q.push(c3, c3.prior);    q.push(c4, c4.prior);
+    q.push(c5, c5.prior);    q.push(c6, c6.prior);
+    q.push(c7, c7.prior);   q.push(c8, c8.prior);
+ cout<<"Очередь сортированная по приорету"<<endl;
+    q.print();
+
+   QueuePrior<Statictic> qs; // отдельная очередь для статистики
+  cout<<"Статистика печати"<<endl;
+   int l = q.size();
+   for(int i = 0; i<l;i++){
+      Client c = q.front();
+      q.pop();
+      this_thread::sleep_for(1s);
+      Statictic st(c);
+      qs.push(st,i);
+  }
+   qs.print();
     return 0;
 }

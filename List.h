@@ -16,8 +16,9 @@ public:
     } // конец конструктора List
 
     ~List(); // деструктор
-    void insertAtFront( const NODETYPE & );
-    void insertAtBack( const NODETYPE & );
+    void insertAtFront( const NODETYPE &, const int pri = 0);
+    void insertAtBack( const NODETYPE &, const int pri = 0);
+    void insertBetween( const NODETYPE &, const int pri = 0);
     bool removeFromFront();
     bool removeFromBack();
     NODETYPE front() const;
@@ -30,7 +31,7 @@ private:
     ListNode< NODETYPE > *lastPtr; // указатель на последний узел
     int lenght = 0; // размер
     // сервисная функция для выделения памяти нового узла
-    ListNode< NODETYPE > *getNewNode( const NODETYPE & );
+    ListNode< NODETYPE > *getNewNode( const NODETYPE &, const int pri = 0 );
 }; // конец класса List
 // деструктор
 template< typename NODETYPE >
@@ -53,9 +54,53 @@ List< NODETYPE >::~List()
 } // конец деструкора List
 // вставить узел в начало списка
 template< typename NODETYPE >
-void List< NODETYPE >::insertAtFront( const NODETYPE &value )
+void List< NODETYPE >::insertBetween( const NODETYPE &value, const int pri){
+
+
+    if ( isEmpty() ) insertAtFront(value,pri);
+    else if(lenght==1){
+        if(firstPtr->prioir < pri)
+            insertAtBack(value,pri);
+        else
+            insertAtFront(value,pri);
+    }
+    else
+    {
+
+        ListNode< NODETYPE > *newPtr = getNewNode( value,pri ); // новый узел
+        lenght++;
+        ListNode< NODETYPE > *currentPtr1 = firstPtr;
+        ListNode< NODETYPE > *currentPtr2 = firstPtr;
+
+        while ( currentPtr2->nextPtr != 0 ){
+            currentPtr2 = currentPtr2->nextPtr; // перейти к следующему
+            if(newPtr->prioir < currentPtr2->prioir){
+                currentPtr1->nextPtr = newPtr;
+                newPtr->nextPtr=currentPtr2;
+                return;
+            }
+            if(currentPtr2 !=lastPtr)
+                currentPtr1 = currentPtr2;
+        }
+
+        if(lastPtr->prioir < pri){
+            lenght--;
+            insertAtBack(value,pri);
+        }
+        else if(currentPtr1 != firstPtr){
+
+            currentPtr1->nextPtr = newPtr;
+            newPtr->nextPtr      = lastPtr;
+        }
+
+
+    }
+}
+
+template< typename NODETYPE >
+void List< NODETYPE >::insertAtFront( const NODETYPE &value, const int pri)
 {
-    ListNode< NODETYPE > *newPtr = getNewNode( value ); // новый узел
+    ListNode< NODETYPE > *newPtr = getNewNode( value,pri ); // новый узел
     lenght++;
     if ( isEmpty() ) // список пуст
         firstPtr = lastPtr = newPtr; // список имеет всего один узел
@@ -68,9 +113,9 @@ void List< NODETYPE >::insertAtFront( const NODETYPE &value )
 
 // вставить узел в начало списка
 template< typename NODETYPE >
-void List< NODETYPE >::insertAtBack( const NODETYPE &value )
+void List< NODETYPE >::insertAtBack( const NODETYPE &value , const int pri )
 {
-    ListNode< NODETYPE > *newPtr = getNewNode( value ); // новый узел
+    ListNode< NODETYPE > *newPtr = getNewNode( value,pri ); // новый узел
     lenght++;
     if ( isEmpty() ) // список пуст
         firstPtr = lastPtr = newPtr; // список имеет всего один узел
@@ -145,9 +190,9 @@ bool List< NODETYPE >::isEmpty() const
 
 // возвратить указатель на вновь выделенный узел
 template< typename NODETYPE >
-ListNode< NODETYPE > *List< NODETYPE >::getNewNode(const NODETYPE &value )
+ListNode< NODETYPE > *List< NODETYPE >::getNewNode(const NODETYPE &value, const int pri)
 {
-    return new ListNode< NODETYPE >( value );
+    return new ListNode< NODETYPE >( value,pri );
 } // конец функции getNewNode
 
 // вывести содержимое списка
@@ -162,7 +207,7 @@ void List< NODETYPE >::print() const
 
     ListNode< NODETYPE > *currentPtr = firstPtr;
 
-    cout << "The list is: ";
+    cout << "The list is:\n ";
 
     while ( currentPtr != 0 ) // получить данные элемента
     {

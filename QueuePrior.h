@@ -3,13 +3,14 @@
 #include "List.h" // определение класса List
 
  template< typename STACKTYPE >
- class Queue : private List< STACKTYPE >
+ class QueuePrior : private List< STACKTYPE >
  {
  public:
  // push вызывает функцию insertAtFront класса List
- void push( const STACKTYPE &data )
+ void push( const STACKTYPE &data, const int prior = 1 )
  {
- List< STACKTYPE >::insertAtBack(data );
+
+ List< STACKTYPE >::insertBetween(data,prior );
  } // конец функции push
 STACKTYPE front(){
     return  List< STACKTYPE >::front();
@@ -35,7 +36,7 @@ STACKTYPE front(){
      return List< STACKTYPE >::size();
  }
 
- }; // конец класса Stack
+ }; // конец класса QueuePrior
 
 
 #endif // QUEUE_H
