@@ -31,6 +31,10 @@ STACKTYPE front(){
  {
  List< STACKTYPE >::print ();
  } // конец функции print
+ void printBack() const
+ {
+ List< STACKTYPE >::printBack();
+ } // конец функции print
  int size() const{
      return List< STACKTYPE >::size();
  }

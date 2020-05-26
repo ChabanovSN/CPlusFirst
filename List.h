@@ -24,6 +24,7 @@ public:
     NODETYPE back() const;
     bool isEmpty() const;
     void print() const;
+     void printBack() const;
     int size() const;
 private:
     ListNode< NODETYPE > *firstPtr; // указатель на первый узел
@@ -75,7 +76,7 @@ void List< NODETYPE >::insertAtBack( const NODETYPE &value )
     if ( isEmpty() ) // список пуст
         firstPtr = lastPtr = newPtr; // список имеет всего один узел
     else // список не пуст
-    {
+    {   newPtr->prevPtr = lastPtr;
         lastPtr->nextPtr = newPtr; // обновить бывший последний узел
         lastPtr = newPtr; // новый последний узел
     } // конец else
@@ -115,23 +116,17 @@ bool List< NODETYPE >::removeFromBack()
         return false; // неудачное удаление
     else
     {
-        ListNode< NODETYPE > *tempPtr = lastPtr; // для удаления
+
         lenght--;
         if ( firstPtr == lastPtr ) //в списке один элемент
             firstPtr = lastPtr =0; // после удаления узлов нет
         else
         {
-            ListNode< NODETYPE > *currentPtr = firstPtr;
 
-            // locate second-to-last element
-            while ( currentPtr->nextPtr != lastPtr )
-                currentPtr = currentPtr->nextPtr; // перейти к следующему
+             lastPtr = lastPtr->prevPtr;
+             lastPtr->nextPtr=0;
+          } // конец else
 
-            lastPtr = currentPtr; // удалить последний узел
-            currentPtr->nextPtr =0; // теперь это последний узел
-        } // конец else
-
-        delete tempPtr; // освободить бывший последний узел
         return true; // удачное удаление
     } // конец else
 } // конец функции removeFromBack
@@ -168,6 +163,28 @@ void List< NODETYPE >::print() const
     {
         cout << currentPtr->data << ' ' ;
         currentPtr = currentPtr->nextPtr;
+    } // конец while
+
+    cout << "\n\n";
+} // конец функции print
+// вывести содержимое списка
+template< typename NODETYPE >
+void List< NODETYPE >::printBack() const
+{
+    if ( isEmpty() ) // список пуст
+    {
+        cout<< "The list is empty\n\n";
+        return;
+    } // конец if
+
+    ListNode< NODETYPE > *currentPtr = lastPtr;
+
+    cout << "The back list is: ";
+
+    while ( currentPtr != 0 ) // получить данные элемента
+    {
+        cout << currentPtr->data << ' ' ;
+        currentPtr = currentPtr->prevPtr;
     } // конец while
 
     cout << "\n\n";

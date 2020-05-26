@@ -18,11 +18,12 @@
  NODETYPE data; // данные
 
  ListNode< NODETYPE > *nextPtr; // следующий узел в списке
+ ListNode< NODETYPE > *prevPtr; //предидущий узел в списке
  }; // конец класса ListNode
  // конструктор
  template< typename NODETYPE >
  ListNode< NODETYPE >::ListNode( const NODETYPE &info )
- : data( info ), nextPtr( 0 )
+ : data( info ), nextPtr( 0 ),prevPtr(0)
  {
  // пустое тело
  } // конец конструктора ListNode
