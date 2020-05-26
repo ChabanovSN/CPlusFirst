@@ -8,5 +8,4 @@ SOURCES += \
 
 HEADERS += \
     List.h \
-    ListNode.h \
-    Queue.h
+    ListNode.h

@@ -2,7 +2,6 @@
 #define LISTNODE_H
 
 // Опережающее объявление класса List необходимо, чтобы List
-// можно было использовать в объявлении дружественности в строке 13
  template< typename NODETYPE >
  class List;
 

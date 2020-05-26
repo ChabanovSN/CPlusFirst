@@ -18,8 +18,11 @@ public:
     ~List(); // деструктор
     void insertAtFront( const NODETYPE & );
     void insertAtBack( const NODETYPE & );
+    void insertAt( const NODETYPE &, const int pos=0 );
     bool removeFromFront();
     bool removeFromBack();
+    bool remove(const int pos=0);
+    int find( const NODETYPE &) const;
     NODETYPE front() const;
     NODETYPE back() const;
     bool isEmpty() const;
@@ -51,6 +54,40 @@ List< NODETYPE >::~List()
     } // конец if
 
 } // конец деструкора List
+template< typename NODETYPE>
+int List< NODETYPE >::find( const NODETYPE &value) const{
+    ListNode< NODETYPE > *tempPtr = firstPtr; // для прогона до нужного узла
+    int pos = 0; //для поиска нужной позиции
+    while(tempPtr != 0 && tempPtr->data != value ){
+        ++pos;
+        tempPtr = tempPtr->nextPtr;
+    }
+    if(tempPtr !=0)return pos;
+    return  NULL;
+}
+
+// вставить узел в указанную позицию
+template< typename NODETYPE >
+void List< NODETYPE >::insertAt( const NODETYPE &value, const int pos ){
+    if(pos>lenght)insertAtBack(value);
+    else if(pos==0) {
+       insertAtFront(value);
+    }
+    else{
+        lenght++;
+        ListNode< NODETYPE > *newPtr = getNewNode( value ); // новый узел
+        ListNode< NODETYPE > *tempPtr = firstPtr; // для прогона до нужного узла
+        int count = 0; //для поиска нужной позиции
+        while(count < pos-1){
+            ++count;
+            tempPtr = tempPtr->nextPtr;
+        }
+          ListNode< NODETYPE > *tempPtr2 = tempPtr->nextPtr;// следующий
+          tempPtr->nextPtr = newPtr;
+          newPtr->nextPtr = tempPtr2;
+    }
+}
+
 // вставить узел в начало списка
 template< typename NODETYPE >
 void List< NODETYPE >::insertAtFront( const NODETYPE &value )
@@ -106,6 +143,30 @@ bool List< NODETYPE >::removeFromFront()
 template< typename NODETYPE >
 NODETYPE List< NODETYPE >::back() const{
     return  lastPtr->data;
+}
+template< typename NODETYPE >
+bool List< NODETYPE >::remove(const int pos){
+    if ( isEmpty()) // список пуст
+        return false; // неудачное удаление
+    else if(pos == 0)
+        return removeFromFront();
+    else if (pos==lenght)
+        return removeFromBack();
+    else{
+        lenght--;
+        ListNode< NODETYPE > *tempPtr = firstPtr; // для прогона до нужного узла
+        int count = 0; //для поиска нужной позиции
+        while(count < pos-1){
+            ++count;
+            tempPtr = tempPtr->nextPtr;
+        }
+         ListNode< NODETYPE > *delElem = tempPtr->nextPtr; // перескок через удаляемый элемнт
+          ListNode< NODETYPE > *afterDel = delElem->nextPtr;// следующий
+          tempPtr->nextPtr = afterDel;
+          return true;
+    }
+
+    return false;
 }
 // удалить узел из конца списка
 template< typename NODETYPE >
