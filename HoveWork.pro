@@ -7,5 +7,6 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
-    Tree.h \
-    TreeNode.h
+    node.h \
+    listnode.h \
+    pass.h
