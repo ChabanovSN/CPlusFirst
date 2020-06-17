@@ -7,6 +7,4 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
-    node.h \
-    listnode.h \
-    pass.h
+    Transport.h
