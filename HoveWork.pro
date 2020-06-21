@@ -7,4 +7,5 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
-    Transport.h
+    Passport.h \
+    Picture.h
