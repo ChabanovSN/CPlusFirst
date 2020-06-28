@@ -7,5 +7,5 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
-    Passport.h \
-    Picture.h
+    employer.h \
+    shape.h
