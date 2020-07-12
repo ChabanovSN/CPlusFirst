@@ -7,5 +7,4 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
-    employer.h \
-    shape.h
+    Train.h
