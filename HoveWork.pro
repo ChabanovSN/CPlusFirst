@@ -7,4 +7,5 @@ SOURCES += \
     main.cpp
 
 HEADERS += \
-    Train.h
+    Auto.h \
+    Functors.h
